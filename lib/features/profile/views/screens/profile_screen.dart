@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_assets.dart';
 
 import '../../../authentication/viewmodel/auth_cubit.dart';
 
@@ -16,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
+            image: AssetImage(AppAssets.background),
             fit: BoxFit.cover,
             repeat: ImageRepeat.repeat,
           ),

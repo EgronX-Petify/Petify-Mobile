@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/constants/app_assets.dart';
 import '../widgets/home_header.dart';
 import '../widgets/service_card.dart';
 
@@ -18,7 +19,7 @@ class HomeScreen extends StatelessWidget {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
+            image: AssetImage(AppAssets.background),
             fit: BoxFit.cover,
             repeat: ImageRepeat.repeat,
           ),
@@ -59,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         mainAxisSpacing: 16,
                         crossAxisSpacing: 16,
-                        childAspectRatio: 0.85,
+                        childAspectRatio: 1.0,
                         children: [
                           ServiceCard(
                             title: AppStrings.veterinary,
@@ -124,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                   context,
                   title: 'Shop Now',
                   subtitle: 'Browse pet products',
-                  image: 'assets/images/cats.png',
+                  image: AppAssets.catsCategory,
                   color: AppColors.primary,
                   onTap: () => context.go('/shop'),
                 ),
@@ -135,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                   context,
                   title: 'Track Orders',
                   subtitle: 'Check order status',
-                  image: 'assets/images/TrackOrders.png',
+                  image: AppAssets.trackOrders,
                   color: AppColors.secondary,
                   onTap: () {
                     // TODO: Navigate to track orders
@@ -155,7 +156,7 @@ class HomeScreen extends StatelessWidget {
                   context,
                   title: 'Find Nearby',
                   subtitle: 'Pet services near you',
-                  image: 'assets/images/FindNearBy.png',
+                  image: AppAssets.findNearBy,
                   color: AppColors.vetCategory,
                   onTap: () => context.go('/vets'),
                 ),
@@ -166,7 +167,7 @@ class HomeScreen extends StatelessWidget {
                   context,
                   title: 'Appointments',
                   subtitle: 'Upcoming bookings',
-                  image: 'assets/images/UpcomingAppointments.png',
+                  image: AppAssets.upcomingAppointments,
                   color: AppColors.groomingCategory,
                   onTap: () {
                     // TODO: Navigate to appointments
@@ -191,7 +192,7 @@ class HomeScreen extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 160,
+        height: 180,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.white.withOpacity(0.95),
@@ -208,6 +209,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
+              flex: 3,
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -216,23 +218,46 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(image, fit: BoxFit.cover),
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.contain,
+                    width: double.infinity,
+                    height: double.infinity,
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 12),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                color: color,
+            const SizedBox(height: 8),
+            Flexible(
+              flex: 1,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: color,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Flexible(
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(fontSize: 11, color: AppColors.grey600),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              subtitle,
-              style: TextStyle(fontSize: 12, color: AppColors.grey600),
             ),
           ],
         ),

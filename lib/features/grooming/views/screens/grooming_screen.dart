@@ -38,19 +38,19 @@ class _GroomingScreenState extends State<GroomingScreen> {
                   Text(
                     AppStrings.grooming,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: AppColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Professional grooming services for your pets',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.grey600,
-                        ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: AppColors.grey600),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Search Bar
                   Container(
                     decoration: BoxDecoration(
@@ -81,14 +81,17 @@ class _GroomingScreenState extends State<GroomingScreen> {
                 ],
               ),
             ),
-            
+
             // Service Filters
             Container(
               height: 60,
               color: AppColors.white,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 8,
+                ),
                 children: [
                   _buildServiceChip('All'),
                   _buildServiceChip('Bath & Brush'),
@@ -98,7 +101,7 @@ class _GroomingScreenState extends State<GroomingScreen> {
                 ],
               ),
             ),
-            
+
             // Services Grid
             Expanded(
               child: Padding(
@@ -108,7 +111,7 @@ class _GroomingScreenState extends State<GroomingScreen> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
-                    childAspectRatio: 0.8,
+                    childAspectRatio: 1.0,
                   ),
                   itemCount: 8,
                   itemBuilder: (context, index) {
@@ -220,9 +223,7 @@ class _GroomingScreenState extends State<GroomingScreen> {
 class _GroomingServiceCard extends StatelessWidget {
   final Map<String, dynamic> service;
 
-  const _GroomingServiceCard({
-    required this.service,
-  });
+  const _GroomingServiceCard({required this.service});
 
   @override
   Widget build(BuildContext context) {
@@ -239,86 +240,106 @@ class _GroomingServiceCard extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 48,
-              height: 48,
+              width: 40,
+              height: 40,
               decoration: BoxDecoration(
                 color: AppColors.groomingCategory.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Icon(
                 service['icon'] as IconData,
                 color: AppColors.groomingCategory,
-                size: 24,
+                size: 20,
               ),
             ),
-            const SizedBox(height: 12),
-            Text(
-              service['name'] as String,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: AppColors.black,
-                    fontWeight: FontWeight.w600,
-                  ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              service['description'] as String,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.grey600,
-                  ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      service['price'] as String,
-                      style: TextStyle(
-                        color: AppColors.groomingCategory,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+            const SizedBox(height: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: Text(
+                      service['name'] as String,
+                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    Text(
-                      service['duration'] as String,
-                      style: TextStyle(
-                        color: AppColors.grey500,
-                        fontSize: 12,
+                  ),
+                  const SizedBox(height: 4),
+                  Flexible(
+                    child: Text(
+                      service['description'] as String,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.grey600,
+                        fontSize: 11,
                       ),
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: AppColors.groomingCategory,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    'Book',
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                ),
-              ],
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              service['price'] as String,
+                              style: TextStyle(
+                                color: AppColors.groomingCategory,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              service['duration'] as String,
+                              style: TextStyle(
+                                color: AppColors.grey500,
+                                fontSize: 9,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.groomingCategory,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          'Book',
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
   }
-} 
+}

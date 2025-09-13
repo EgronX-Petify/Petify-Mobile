@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/widgets/petify_animation_widget.dart';
+import '../../../../core/constants/app_assets.dart';
 import '../../viewmodel/auth_cubit.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/auth_button.dart';
@@ -36,10 +38,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _handleRegister() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<AuthCubit>().register(
-            _emailController.text.trim(),
-            _passwordController.text,
-            _nameController.text.trim(),
-          );
+        _emailController.text.trim(),
+        _passwordController.text,
+        _nameController.text.trim(),
+      );
     }
   }
 
@@ -70,24 +72,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   const SizedBox(height: 20),
                   const PetifyLogo(),
-                  const SizedBox(height: 32),
-                  Text(
-                    AppStrings.register,
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    AppStrings.signUpToEnjoy,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.grey600,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 20),
+
+                  // // Animation
+                  // PetifyAnimationWidget(
+                  //   animationPath: AppAssets.introAnimation,
+                  //   size: 80, // Smaller compact size
+                  //   borderRadius: 16,
+                  // ),
+
+                  // const SizedBox(height: 24),
+                  // Text(
+                  //   AppStrings.register,
+                  //   style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  //     color: AppColors.primary,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  //   textAlign: TextAlign.center,
+                  // ),
+                  // const SizedBox(height: 32),
                   AuthTextField(
                     controller: _nameController,
                     label: 'Full Name',
@@ -112,8 +115,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (value?.isEmpty ?? true) {
                         return 'Email is required';
                       }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value!)) {
+                      if (!RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      ).hasMatch(value!)) {
                         return 'Please enter a valid email';
                       }
                       return null;
@@ -144,8 +148,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (value!.length < 8) {
                         return 'Password must be at least 8 characters';
                       }
-                      if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)')
-                          .hasMatch(value)) {
+                      if (!RegExp(
+                        r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)',
+                      ).hasMatch(value)) {
                         return 'Password must contain uppercase, lowercase, and number';
                       }
                       return null;
@@ -165,7 +170,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-                          _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                          _isConfirmPasswordVisible =
+                              !_isConfirmPasswordVisible;
                         });
                       },
                     ),
@@ -190,8 +196,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Wrap(
+                    alignment: WrapAlignment.center,
                     children: [
                       Text(
                         AppStrings.alreadyHaveAccount,
@@ -217,4 +223,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-} 
+}

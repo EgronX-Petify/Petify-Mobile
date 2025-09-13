@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/constants/app_assets.dart';
 import '../../../profile/views/screens/profile_screen.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -43,10 +44,7 @@ class HomeHeader extends StatelessWidget {
                   ],
                 ),
                 padding: const EdgeInsets.all(8),
-                child: Image.asset(
-                  'assets/images/Logo.png',
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
               ),
 
               // Welcome text

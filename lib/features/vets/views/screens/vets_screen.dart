@@ -38,19 +38,19 @@ class _VetsScreenState extends State<VetsScreen> {
                   Text(
                     AppStrings.vets,
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      color: AppColors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     'Find and book appointments with veterinarians',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.grey600,
-                        ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium?.copyWith(color: AppColors.grey600),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Search Bar
                   Container(
                     decoration: BoxDecoration(
@@ -81,14 +81,17 @@ class _VetsScreenState extends State<VetsScreen> {
                 ],
               ),
             ),
-            
+
             // Filters
             Container(
               height: 60,
               color: AppColors.white,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 8,
+                ),
                 children: [
                   _buildFilterChip('All'),
                   _buildFilterChip('General Practice'),
@@ -98,7 +101,7 @@ class _VetsScreenState extends State<VetsScreen> {
                 ],
               ),
             ),
-            
+
             // Veterinarians List
             Expanded(
               child: ListView.builder(
@@ -151,12 +154,26 @@ class _VetsScreenState extends State<VetsScreen> {
   }
 
   String _getVetName(int index) {
-    final names = ['Sarah Johnson', 'Michael Chen', 'Emma Davis', 'James Wilson', 'Lisa Anderson', 'David Brown'];
+    final names = [
+      'Sarah Johnson',
+      'Michael Chen',
+      'Emma Davis',
+      'James Wilson',
+      'Lisa Anderson',
+      'David Brown',
+    ];
     return names[index % names.length];
   }
 
   String _getVetSpecialty(int index) {
-    final specialties = ['General Practice', 'Surgery', 'Emergency Care', 'Cardiology', 'Dermatology', 'Orthopedics'];
+    final specialties = [
+      'General Practice',
+      'Surgery',
+      'Emergency Care',
+      'Cardiology',
+      'Dermatology',
+      'Orthopedics',
+    ];
     return specialties[index % specialties.length];
   }
 }
@@ -214,25 +231,21 @@ class _VetCard extends StatelessWidget {
                     Text(
                       name,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        color: AppColors.black,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       specialty,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.grey600,
-                          ),
+                        color: AppColors.grey600,
+                      ),
                     ),
                     const SizedBox(height: 8),
-                    Row(
+                    Wrap(
                       children: [
-                        Icon(
-                          Icons.star,
-                          color: AppColors.warning,
-                          size: 16,
-                        ),
+                        Icon(Icons.star, color: AppColors.warning, size: 16),
                         const SizedBox(width: 4),
                         Text(
                           rating.toString(),
@@ -264,9 +277,10 @@ class _VetCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: isAvailable 
-                      ? AppColors.success.withOpacity(0.1)
-                      : AppColors.error.withOpacity(0.1),
+                  color:
+                      isAvailable
+                          ? AppColors.success.withOpacity(0.1)
+                          : AppColors.error.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
@@ -307,9 +321,12 @@ class _VetCard extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: isAvailable ? () {
-                    // TODO: Book appointment
-                  } : null,
+                  onPressed:
+                      isAvailable
+                          ? () {
+                            // TODO: Book appointment
+                          }
+                          : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.vetCategory,
                     shape: RoundedRectangleBorder(
@@ -332,4 +349,4 @@ class _VetCard extends StatelessWidget {
       ),
     );
   }
-} 
+}

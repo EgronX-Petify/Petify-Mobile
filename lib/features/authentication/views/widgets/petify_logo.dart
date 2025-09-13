@@ -6,11 +6,7 @@ class PetifyLogo extends StatelessWidget {
   final double? size;
   final bool showText;
 
-  const PetifyLogo({
-    super.key,
-    this.size,
-    this.showText = true,
-  });
+  const PetifyLogo({super.key, this.size, this.showText = true});
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +33,7 @@ class PetifyLogo extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               // Main paw print design
-              Icon(
-                Icons.pets,
-                size: logoSize * 0.6,
-                color: AppColors.white,
-              ),
+              Icon(Icons.pets, size: logoSize * 0.6, color: AppColors.white),
               // Accent dots to represent multiple pets
               Positioned(
                 top: logoSize * 0.15,
@@ -81,18 +73,18 @@ class PetifyLogo extends StatelessWidget {
               letterSpacing: -1,
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            AppStrings.appSlogan,
-            style: TextStyle(
-              fontSize: 14,
-              color: AppColors.grey600,
-              fontWeight: FontWeight.w500,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          // const SizedBox(height: 4),
+          // Text(
+          //   AppStrings.appSlogan,
+          //   style: TextStyle(
+          //     fontSize: 14,
+          //     color: AppColors.grey600,
+          //     fontWeight: FontWeight.w500,
+          //   ),
+          //   textAlign: TextAlign.center,
+          // ),
         ],
       ],
     );
   }
-} 
+}

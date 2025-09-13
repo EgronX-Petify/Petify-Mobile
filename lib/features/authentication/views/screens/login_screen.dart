@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/widgets/petify_animation_widget.dart';
+import '../../../../core/constants/app_assets.dart';
 import '../../viewmodel/auth_cubit.dart';
 import '../widgets/auth_text_field.dart';
 import '../widgets/auth_button.dart';
@@ -31,9 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void _handleLogin() {
     if (_formKey.currentState?.validate() ?? false) {
       context.read<AuthCubit>().login(
-            _emailController.text.trim(),
-            _passwordController.text,
-          );
+        _emailController.text.trim(),
+        _passwordController.text,
+      );
     }
   }
 
@@ -64,24 +66,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const SizedBox(height: 40),
                   const PetifyLogo(),
-                  const SizedBox(height: 40),
-                  Text(
-                    AppStrings.login,
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    AppStrings.signInToEnjoy,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.grey600,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 24),
+
+                  // Animation
+                  // PetifyAnimationWidget(
+                  //   animationPath: AppAssets.introAnimation,
+                  //   size: 80, // Smaller compact size
+                  //   borderRadius: 16,
+                  // ),
+
+                  // const SizedBox(height: 32),
+                  // Text(
+                  //   AppStrings.login,
+                  //   style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  //     color: AppColors.primary,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  //   textAlign: TextAlign.center,
+                  // ),
+                  // const SizedBox(height: 40),
                   AuthTextField(
                     controller: _emailController,
                     label: AppStrings.email,
@@ -91,8 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (value?.isEmpty ?? true) {
                         return 'Email is required';
                       }
-                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value!)) {
+                      if (!RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      ).hasMatch(value!)) {
                         return 'Please enter a valid email';
                       }
                       return null;
@@ -147,8 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                   const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Wrap(
+                    alignment: WrapAlignment.center,
                     children: [
                       Text(
                         AppStrings.dontHaveAccount,
@@ -174,4 +178,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-} 
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/constants/app_assets.dart';
 
 class ShopScreen extends StatefulWidget {
   const ShopScreen({super.key});
@@ -32,7 +33,7 @@ class _ShopScreenState extends State<ShopScreen> with TickerProviderStateMixin {
         height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background.png'),
+            image: AssetImage(AppAssets.background),
             fit: BoxFit.cover,
             repeat: ImageRepeat.repeat,
           ),

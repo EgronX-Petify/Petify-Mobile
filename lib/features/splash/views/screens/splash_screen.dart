@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/services/secure_storage_service.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,28 +32,20 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
     );
 
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeIn,
-    ));
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+    );
 
-    _scaleAnimation = Tween<double>(
-      begin: 0.8,
-      end: 1.0,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.elasticOut,
-    ));
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.elasticOut),
+    );
 
     _animationController.forward();
   }
 
   Future<void> _navigateAfterDelay() async {
     await Future.delayed(const Duration(seconds: 3));
-    
+
     if (mounted) {
       // Check if user is logged in
       final hasToken = await SecureStorageService.hasToken();
@@ -81,17 +74,14 @@ class _SplashScreenState extends State<SplashScreen>
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              AppColors.primary,
-              AppColors.primaryDark,
-            ],
+            colors: [AppColors.primary, AppColors.primaryDark],
           ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(flex: 2),
-            
+
             // Logo with animations
             AnimatedBuilder(
               animation: _animationController,
@@ -115,18 +105,15 @@ class _SplashScreenState extends State<SplashScreen>
                         ],
                       ),
                       padding: const EdgeInsets.all(20),
-                      child: Image.asset(
-                        'assets/images/Logo.png',
-                        fit: BoxFit.contain,
-                      ),
+                      child: Image.asset(AppAssets.logo, fit: BoxFit.contain),
                     ),
                   ),
                 );
               },
             ),
-            
+
             const SizedBox(height: 30),
-            
+
             // App name
             FadeTransition(
               opacity: _fadeAnimation,
@@ -140,9 +127,9 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 10),
-            
+
             // App slogan
             FadeTransition(
               opacity: _fadeAnimation,
@@ -156,19 +143,20 @@ class _SplashScreenState extends State<SplashScreen>
                 textAlign: TextAlign.center,
               ),
             ),
-            
+
             const Spacer(flex: 2),
-            
+
             // Loading animation
             SizedBox(
               width: 60,
               height: 60,
+
               child: Lottie.asset(
                 'assets/Animation/LoadingPaw.json',
                 repeat: true,
               ),
             ),
-            
+
             const SizedBox(height: 50),
           ],
         ),
