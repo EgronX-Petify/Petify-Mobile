@@ -1,0 +1,298 @@
+Software Requirements Specification
+Petify – A Smart & Comprehensive Platform for Pet Services
+Version: 1.0
+Date: 11/08/2025
+Revision History
+Date
+Description
+Author
+Comments
+11/08/2025
+Version 1
+Abdallah mohamed
+Initial Draft
+
+1. Introduction
+1.1 Purpose
+The purpose of this document is to outline the requirements for the Petify platform, a cross-platform (web and mobile) application for pet owners to manage all aspects of pet care. This document serves as a reference for developers, testers, and stakeholders to ensure clear understanding of system requirements.
+1.2 Scope
+Petify is a cross-platform (web and mobile) application designed as a one-stop digital hub for pet owners to manage all aspects of pet care. The platform enables users to:
+Book pet-related services such as veterinary visits, grooming, training, and boarding.
+Shop for pet supplies from local and online stores.
+Track orders, deliveries, and upcoming appointments.
+Search for nearby pet services using GPS and maps.
+Receive AI-powered recommendations for products and services.
+Manage pet profiles including medical history, vaccinations, and reminders.
+The platform also supports service providers, enabling them to list services, manage bookings, and sell products.
+In Scope:
+Functional requirements for booking, shopping, location search, recommendations, notifications, and profile management.
+Non-functional requirements such as security, usability, and availability.
+External interface specifications (UI, hardware, software, communication).
+Technical requirements including input validations and data constraints.
+Out of Scope:
+Performance testing, stress testing, and automation testing for this release.
+Third-party service provider vetting and licensing validation.
+Advanced AI model training beyond recommendation algorithms.
+
+1.3 Definitions, Acronyms, and Abbreviations
+
+Abbreviation
+Word
+PO
+Pet Owner
+SP
+Service Provider (Vet, Groomer, Store Owner)
+AI
+Artificial Intelligence
+
+
+1.4 References
+Nil2. Specific Requirements
+Petify will have two primary roles:
+Role
+Description
+Pet Owner (PO)
+End-user who owns pets and uses the platform to book services, shop, and manage pet profiles.
+Service Provider (SP)
+Veterinarians, groomers, and store owners who offer services and products via Petify.
+
+
+Modules & Role Mapping
+Module
+Applicable Roles
+Description
+Book Service
+PO
+Pet owner books vet/grooming services from registered SPs.
+Manage Service Listings
+SP
+Service providers add, edit, and remove services offered.
+Shop Supplies
+PO
+Browse and purchase pet products from the in-app store.
+Manage Product Listings
+SP
+Add, edit, delete pet products for sale.
+Track Orders
+PO
+View order history, current deliveries, and statuses.
+Location-based Search
+PO
+Find nearby pet services via GPS.
+AI-powered Recommendations
+PO
+Personalized suggestions for products and services.
+Pet Profile Management
+PO
+Maintain pet medical history, vaccination dates, and reminders.
+Notifications & Reminders
+PO
+Alerts for appointments, health checks, and order updates.
+Secure Login & Profile Management
+PO, SP
+Authentication, password management, and profile updates.
+
+
+2.1 External Interface Requirements
+2.1.1 User Interfaces
+The application will include:
+Web Application UI (desktop & responsive mobile view) with intuitive navigation menus, service categories, product catalog, and user dashboards.
+Mobile Application UI (Android/iOS) with:
+Home dashboard displaying quick links to bookings, store, pet profiles, and recommendations.
+Calendar view for appointments and reminders.
+Integrated map view for nearby services.
+Push notification alerts.
+Accessibility features: font scaling, high-contrast mode.
+2.1.2 Hardware Interfaces
+Smartphone GPS – Required for location-based service discovery.
+Camera Access – For uploading pet photos and scanning product QR codes.
+Microphone Access – For voice search in mobile apps (future enhancement).
+2.1.3 Software Interfaces
+Google Maps API – For location search and directions.
+Payment Gateway APIs – Fawry, Vodafone Cash, Meeza, Credit/Debit Cards.
+Push Notification Services – Firebase Cloud Messaging (Android), Apple Push Notification Service (iOS).
+AI Recommendation Engine API – For personalized suggestions.
+Database – Cloud-based PostgreSQL database for storing all user and pet data.
+2.1.4 Communication Interfaces
+HTTPS – For secure communication between client apps and server APIs.
+RESTful APIs – For CRUD operations on services, products, and profiles.
+WebSocket – For real-time booking updates and chat with service providers.
+Email/SMS Gateways – For transactional messages (bookings, emergencies).
+3.1 Front End Details
+1. Book Service Form
+Fields:
+Service Type (Dropdown: Vet, Grooming, Training, Boarding)
+Pet (Dropdown: List of user’s pets)
+Date (Calendar Picker)
+Time (Time Picker)
+Service Provider (Dropdown/List with ratings & price)
+Notes / Special Instructions (Textarea)
+Buttons: Submit, Reset, Cancel
+2. Shop Supplies Form
+Fields:
+Product Search (Text box)
+Category (Dropdown)
+Quantity (Number field)
+Delivery Address (Text box)
+Payment Method (Dropdown: Fawry, Vodafone Cash, Meeza, Card)
+Buttons: Add to Cart, Checkout, Reset
+3. Pet Profile Form
+Fields:
+Pet Name (Text box)
+Species (Dropdown: Dog, Cat, Bird, Other)
+Breed (Text box)
+Gender (Dropdown: Male, Female)
+Date of Birth (Date Picker)
+Medical History (Textarea)
+Vaccination Dates (Date Picker – multiple entries)
+Photo Upload (File upload control)
+Buttons: Save, Reset
+4. Location Search Form
+Fields:
+Service Type (Dropdown: Vet, Groomer, Store)
+Current Location (GPS auto-detected / manual entry)
+Distance Range (Slider: 1km – 50km)
+Buttons: Search, Reset
+5. Emergency Booking Form
+Fields:
+Pet (Dropdown)
+Emergency Type (Dropdown: Injury, Illness, Other)
+Service Provider (Dropdown/List of 24/7 vets)
+Contact Phone (Auto-filled from profile)
+Notes (Textarea)
+Buttons: Submit, Call Now
+
+3.2 Technical Requirements
+A. User Registration & Login
+T1 – Email field must not be blank.
+T2 – Email must follow a valid format (e.g., user@example.com).
+T3 – Password must not be blank.
+T4 – Password must contain at least 8 characters.
+T5 – Password must contain at least one uppercase letter, one number, and one special character.
+T6 – Username must not contain special characters (except underscores).
+B. Pet Profile
+T7 – Pet name must not be blank.
+T8 – Pet name must not contain special characters or numbers.
+T9 – Pet date of birth must not be in the future.
+T10 – Vaccination date must not be in the past beyond recorded medical history range.
+T11 – Photo upload must be in JPG, PNG, or WEBP format.
+T12 – Photo size must not exceed 5MB.
+C. Service Booking
+T13 – Service date must be a valid date format (YYYY-MM-DD).
+T14 – Service date must not be in the past.
+T15 – Notes field must not exceed 500 characters.
+T16 – Selected service provider ID must exist in the database.
+D. Product Purchases
+T17 – Product quantity must be a positive integer.
+T18 – Product ID must exist in the database before checkout.
+T19 – Payment method must be selected before checkout.
+T20 – Payment reference number must be unique per transaction.
+E. Location Services
+T21 – GPS coordinates must be valid latitude/longitude format.
+T22 – Manual location entry must not be blank if GPS is disabled.
+F. Emergency Features
+T23 – Emergency booking flag must be stored as a boolean value.
+T24 – Emergency contact phone number must be in valid international format.
+G. Notifications
+T25 – Push notification message must not exceed 200 characters.
+T26 – Email subject must not exceed 100 characters.
+H. File & Data Handling
+T27 – Uploaded documents (medical records) must be PDF, DOCX, or JPG only.
+T28 – File uploads must not exceed 10MB.
+
+3.4 Functional Requirements
+A. User & Authentication
+FR1 – The system shall allow Pet Owners (PO) and Service Providers (SP) to create an account.
+FR2 – The system shall allow users to log in using email and password.
+FR3 – The system shall support password recovery via email.
+FR4 – The system shall allow users to update their profile information.
+FR5 – The system shall store profile photos for users.
+FR6 –  The system shall store a phone numbers for users.
+FR7 – The system shall allow password changes from the profile page.
+B. Pet Profile Management
+FR8 – The system shall allow users to create multiple pet profiles.
+FR9 – The system shall store each pet’s name, species, breed, date of birth, and gender.
+FR10 – The system shall store medical history for each pet.
+FR11 – The system shall store vaccination dates for each pet.
+FR12 – The system shall allow uploading pet photos.
+FR13 – The system shall send reminders for upcoming vaccination dates.
+C. Service Booking
+FR14 – The system shall allow POs to search for services (vet, grooming, etc.).
+FR15 – The system shall allow POs to filter services by category, price, and rating.
+FR16 – The system shall display service provider profiles with details.
+FR17 – The system shall allow booking of available time slots for a service.
+FR18 – The system shall allow rescheduling of booked appointments.
+FR19 – The system shall allow cancellation of booked appointments.
+FR20 – The system shall send booking confirmation notifications.
+FR21 – The system shall send reminders before appointment time.
+D. Location-Based Search
+FR22 – The system shall detect user location via GPS.
+FR23 – The system shall display nearby service providers on a map.
+FR24 – The system shall allow sorting search results by distance.
+FR25 – The system shall allow manual location entry if GPS is disabled.
+E. E-commerce (Pet Supplies)
+FR26 – The system shall allow POs to browse pet products by category.
+FR27 – The system shall provide a search bar for products.
+FR28 – The system shall display product details (price, description, stock).
+FR29 – The system shall allow adding products to a shopping cart.
+FR30 – The system shall allow removing products from the cart.
+FR31 – The system shall calculate total cost including delivery fees.
+FR32 – The system shall allow checkout with address selection.
+FR33 – The system shall allow selection of payment method.
+FR34 – The system shall process payments via Fawry, Vodafone Cash, Meeza, and credit card.
+FR35 – The system shall send order confirmation notifications.
+FR36 – The system shall allow users to view past orders.
+F. AI Recommendations & Notifications
+FR37 – The system shall analyze user purchase and booking history to suggest products and services.
+FR38 – The system shall display recommended services on the home screen.
+FR39 – The system shall display recommended products on the store page.
+FR40 – The system shall send push notifications for promotions.
+FR41 – The system shall send push notifications for expiring offers.
+G. Service Provider Features
+FR42 – The system shall allow SPs to list their services with pricing.
+FR43 – The system shall allow SPs to update service details.
+FR44 – The system shall allow SPs to view and manage bookings.
+FR45 – The system shall allow SPs to mark appointments as completed.
+FR46 – The system shall allow SPs to manage product inventory.
+FR47 – The system shall allow SPs to update stock levels.
+FR48 – The system shall allow SPs to contact with a POs.
+H. Security & Admin
+FR49 – The system shall require login before accessing profile or booking.
+FR50 – The system shall log all transactions for auditing.
+FR51 – The system shall allow admins to approve or reject service provider registrations.
+I. Emergency
+FR52 – The system shall allow pet owners to mark a booking as emergency for urgent services.
+FR53 – The system shall prioritize emergency service requests in provider notifications.
+FR53 – The system shall display a list of 24/7 emergency veterinary clinics based on location.
+3.5 Non-Functional Requirements
+A. Performance
+NFR1 – The system shall load the home screen within 3 seconds under normal network conditions.
+NFR2 – Search results shall be displayed within 1 seconds for standard queries.
+NFR3 – The system shall handle at least 500 concurrent users without performance degradation.
+B. Security
+NFR4 – All user data shall be transmitted over HTTPS.
+NFR5 – Passwords shall be stored using salted hashing.
+NFR6 – Payment information shall be secure.
+C. Availability & Reliability
+NFR7 – The system shall have 99.9% uptime per month.
+NFR8 – In case of server failure, the system shall recover within 10 minutes.
+D. Usability
+NFR9 – The mobile and web app shall follow responsive design principles.
+NFR10 – The system shall provide Arabic and English language support.
+NFR11 – All features shall be accessible within 3 clicks from the main menu.
+E. Maintainability
+NFR12 – The system code shall follow a modular structure for easy updates.
+NFR13 – All APIs shall have versioning to ensure backward compatibility.
+F. Scalability
+NFR14 – The system shall support scaling to 10,000 users without architectural changes.
+NFR15 – The product database shall handle up to 1 million items.
+G. Notifications
+NFR16 – Push notifications shall be delivered within 5 seconds of trigger.
+NFR17 – Email notifications shall be sent within 1 minute of trigger.
+I. Compliance
+	NFR18 – The system shall comply with Egyptian e-commerce regulations.
+
+3.7 Design Constraints
+Must support Egyptian payment gateways.
+Must be intuitive for non-technical pet owners.
+Must have accessibility options for disabled pet owners.
