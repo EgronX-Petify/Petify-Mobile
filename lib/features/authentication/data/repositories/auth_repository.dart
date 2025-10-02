@@ -1,23 +1,33 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_model.dart';
 import '../services/auth_service.dart';
 import '../../../../core/services/secure_storage_service.dart';
 
 abstract class AuthRepository {
   Future<AuthResponse> login(String email, String password);
-  Future<AuthResponse> register(String email, String password, String name);
+  Future<RegisterResponse> register(
+    String email,
+    String password, {
+    String role = 'PET_OWNER',
+  });
   Future<void> logout();
   Future<bool> isLoggedIn();
   Future<UserModel?> getCurrentUser();
+  Future<UserModel> updateProfile(Map<String, dynamic> profileData);
+  Future<UserModel> getUserById(int userId);
+  Future<ForgotPasswordResponse> forgotPassword(String email);
+  Future<ChangePasswordResponse> changePassword(
+    String token,
+    String newPassword,
+  );
+  Future<LoginResponse> refreshToken();
   Future<void> saveAuthData(AuthResponse authResponse);
   Future<void> clearAuthData();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthService _authService;
-  final SharedPreferences _prefs;
 
-  AuthRepositoryImpl(this._authService, this._prefs);
+  AuthRepositoryImpl(this._authService);
 
   @override
   Future<AuthResponse> login(String email, String password) async {
@@ -34,18 +44,17 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<AuthResponse> register(
+  Future<RegisterResponse> register(
     String email,
-    String password,
-    String name,
-  ) async {
+    String password, {
+    String role = 'PET_OWNER',
+  }) async {
     try {
       final response = await _authService.register({
         'email': email,
         'password': password,
-        'name': name,
+        'role': role,
       });
-      await saveAuthData(response);
       return response;
     } catch (e) {
       throw Exception('Registration failed: ${e.toString()}');
@@ -70,27 +79,69 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<UserModel?> getCurrentUser() async {
-    final userJson = _prefs.getString('current_user');
-    if (userJson != null) {
-      // For now, return a mock user - in real app you'd parse the JSON
-      return UserModel(
-        id: '1',
-        email: 'user@petify.com',
-        name: 'Pet Lover',
-        phone: '+1234567890',
-        profileImage: null,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      );
+    try {
+      return await _authService.getCurrentUser();
+    } catch (e) {
+      print('Failed to get current user: $e');
+      return null;
     }
-    return null;
+  }
+
+  @override
+  Future<UserModel> updateProfile(Map<String, dynamic> profileData) async {
+    try {
+      return await _authService.updateProfile(profileData);
+    } catch (e) {
+      throw Exception('Profile update failed: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<UserModel> getUserById(int userId) async {
+    try {
+      return await _authService.getUserById(userId);
+    } catch (e) {
+      throw Exception('Failed to get user: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<ForgotPasswordResponse> forgotPassword(String email) async {
+    try {
+      return await _authService.forgotPassword({'email': email});
+    } catch (e) {
+      throw Exception('Forgot password failed: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<ChangePasswordResponse> changePassword(
+    String token,
+    String newPassword,
+  ) async {
+    try {
+      return await _authService.changePassword({
+        'token': token,
+        'newPassword': newPassword,
+      });
+    } catch (e) {
+      throw Exception('Change password failed: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<LoginResponse> refreshToken() async {
+    try {
+      return await _authService.refreshToken();
+    } catch (e) {
+      throw Exception('Token refresh failed: ${e.toString()}');
+    }
   }
 
   @override
   Future<void> saveAuthData(AuthResponse authResponse) async {
     await SecureStorageService.saveToken(authResponse.token);
-    await SecureStorageService.saveRefreshToken(authResponse.refreshToken);
-    await SecureStorageService.saveUserData('mock_user_data');
+    // AuthResponse only contains token, user data is loaded separately via /user/me
   }
 
   @override

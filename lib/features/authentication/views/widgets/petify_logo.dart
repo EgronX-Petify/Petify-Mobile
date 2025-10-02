@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
+import '../../../../core/constants/app_assets.dart';
 
 class PetifyLogo extends StatelessWidget {
   final double? size;
@@ -19,7 +20,7 @@ class PetifyLogo extends StatelessWidget {
           width: logoSize,
           height: logoSize,
           decoration: BoxDecoration(
-            color: AppColors.primary,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
@@ -29,60 +30,34 @@ class PetifyLogo extends StatelessWidget {
               ),
             ],
           ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // Main paw print design
-              Icon(Icons.pets, size: logoSize * 0.6, color: AppColors.white),
-              // Accent dots to represent multiple pets
-              Positioned(
-                top: logoSize * 0.15,
-                right: logoSize * 0.15,
-                child: Container(
-                  width: logoSize * 0.12,
-                  height: logoSize * 0.12,
-                  decoration: BoxDecoration(
-                    color: AppColors.secondary,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: logoSize * 0.15,
-                left: logoSize * 0.15,
-                child: Container(
-                  width: logoSize * 0.08,
-                  height: logoSize * 0.08,
-                  decoration: BoxDecoration(
-                    color: AppColors.secondaryLight,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ],
+          child: Padding(
+            padding: EdgeInsets.all(logoSize * 0.1),
+            child: Image.asset(
+              AppAssets.logo,
+              width: logoSize * 0.8,
+              height: logoSize * 0.8,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
         if (showText) ...[
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
           Text(
             AppStrings.appName,
             style: TextStyle(
-              fontSize: 32,
+              fontSize: 36,
               fontWeight: FontWeight.bold,
               color: AppColors.primary,
               letterSpacing: -1,
+              shadows: [
+                Shadow(
+                  color: Colors.white.withOpacity(0.8),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
           ),
-          // const SizedBox(height: 4),
-          // Text(
-          //   AppStrings.appSlogan,
-          //   style: TextStyle(
-          //     fontSize: 14,
-          //     color: AppColors.grey600,
-          //     fontWeight: FontWeight.w500,
-          //   ),
-          //   textAlign: TextAlign.center,
-          // ),
         ],
       ],
     );

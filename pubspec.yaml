@@ -36,6 +36,7 @@ dependencies:
   equatable: ^2.0.5
 
   # Networking & API
+  dio: ^5.4.0
   http: ^1.1.0
   json_annotation: ^4.8.1
 
@@ -60,8 +61,12 @@ dependencies:
   geolocator: ^10.1.0
   permission_handler: ^11.0.1
 
+  # Image Handling
+  image_picker: ^1.0.4
+
   # Utils
   intl: ^0.19.0
+  get_it: ^7.6.4
 
 dev_dependencies:
   flutter_test:

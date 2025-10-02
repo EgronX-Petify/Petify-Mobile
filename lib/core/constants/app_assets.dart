@@ -1,7 +1,7 @@
 class AppAssets {
   // Images
   static const String _imagesPath = 'assets/images';
-  static const String logo = '$_imagesPath/Logo.png';
+  static const String logo = '$_imagesPath/logo.png';
   static const String onboardingPet = '$_imagesPath/onboarding_pet.png';
   static const String emptyCart = '$_imagesPath/empty_cart.png';
   static const String noAppointments = '$_imagesPath/no_appointments.png';

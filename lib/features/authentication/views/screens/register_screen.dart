@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:petify_mobile/features/authentication/viewmodel/auth_state.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
-import '../../../../core/widgets/petify_animation_widget.dart';
 import '../../../../core/constants/app_assets.dart';
 import '../../viewmodel/auth_cubit.dart';
 import '../widgets/auth_text_field.dart';
@@ -40,7 +40,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       context.read<AuthCubit>().register(
         _emailController.text.trim(),
         _passwordController.text,
-        _nameController.text.trim(),
       );
     }
   }
@@ -48,8 +47,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: BlocListener<AuthCubit, AuthState>(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AppAssets.background),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: BlocListener<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is AuthAuthenticated) {
             context.go('/home');
@@ -219,6 +226,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
             ),
           ),
+        ),
         ),
       ),
     );
